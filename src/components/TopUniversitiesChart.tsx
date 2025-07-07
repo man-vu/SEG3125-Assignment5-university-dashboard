@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { UniversityData } from '../utils/dataUtils';
+import { filterByProvince } from '../utils/dataUtils';
+import type { UniversityData } from '../utils/dataUtils';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface TopUniversitiesChartProps {
@@ -17,9 +18,7 @@ const TopUniversitiesChart: React.FC<TopUniversitiesChartProps> = ({
   const { t, language } = useLanguage();
 
   // Filter data by province if selected
-  const filteredData = selectedProvince === 'All' 
-    ? data 
-    : data.filter(uni => uni.province === selectedProvince);
+  const filteredData = filterByProvince(data, selectedProvince);
 
   // Get top universities
   const topUniversities = filteredData
@@ -43,7 +42,11 @@ const TopUniversitiesChart: React.FC<TopUniversitiesChartProps> = ({
     return value.toLocaleString('en-CA');
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: {
+    active?: boolean;
+    payload?: Array<{ value: number; name: string }>;
+    label?: string;
+  }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
@@ -62,7 +65,7 @@ const TopUniversitiesChart: React.FC<TopUniversitiesChartProps> = ({
               {t('studentType.partTimeGraduate')}: {formatNumber(payload[3]?.value || 0)}
             </p>
             <p className="text-gray-800 font-semibold border-t pt-1 mt-2">
-              Total: {formatNumber(payload.reduce((sum: number, p: any) => sum + (p.value || 0), 0))}
+              Total: {formatNumber(payload.reduce((sum: number, p) => sum + (p.value || 0), 0))}
             </p>
           </div>
         </div>

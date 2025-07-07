@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { UniversityData, parseCSVData } from '../utils/dataUtils';
+import { parseCSVData } from '../utils/dataUtils';
+import type { UniversityData } from '../utils/dataUtils';
 import { useLanguage } from '../contexts/LanguageContext';
 import DashboardControls from './DashboardControls';
 import DashboardMetrics from './DashboardMetrics';

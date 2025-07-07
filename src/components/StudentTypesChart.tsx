@@ -1,6 +1,7 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Area, AreaChart } from 'recharts';
-import { UniversityData, getStudentTypeBreakdown } from '../utils/dataUtils';
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Area, AreaChart } from 'recharts';
+import { getStudentTypeBreakdown, filterByProvince } from '../utils/dataUtils';
+import type { UniversityData } from '../utils/dataUtils';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface StudentTypesChartProps {
@@ -15,9 +16,7 @@ const StudentTypesChart: React.FC<StudentTypesChartProps> = ({
   const { t, language } = useLanguage();
 
   // Filter data by province if selected
-  const filteredData = selectedProvince === 'All' 
-    ? data 
-    : data.filter(uni => uni.province === selectedProvince);
+  const filteredData = filterByProvince(data, selectedProvince);
 
   // Get student type breakdown
   const breakdown = getStudentTypeBreakdown(filteredData);
@@ -54,7 +53,11 @@ const StudentTypesChart: React.FC<StudentTypesChartProps> = ({
     return value.toLocaleString('en-CA');
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: {
+    active?: boolean;
+    payload?: Array<{ value: number; payload: { percentage: string } }>;
+    label?: string;
+  }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">

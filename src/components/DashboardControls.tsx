@@ -34,8 +34,8 @@ const DashboardControls: React.FC<DashboardControlsProps> = ({
             >
               <option value="All">{t('controls.province.all')}</option>
               {provinces.map((province) => (
-                <option key={province} value={province}>
-                  {province}
+                <option key={province.value} value={province.value}>
+                  {t(province.translationKey)}
                 </option>
               ))}
             </select>

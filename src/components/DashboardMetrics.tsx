@@ -1,5 +1,6 @@
 import React from 'react';
-import { UniversityData, getEnrollmentByProvince } from '../utils/dataUtils';
+import { getEnrollmentByProvince, filterByProvince } from '../utils/dataUtils';
+import type { UniversityData } from '../utils/dataUtils';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface DashboardMetricsProps {
@@ -14,9 +15,7 @@ const DashboardMetrics: React.FC<DashboardMetricsProps> = ({
   const { t, language } = useLanguage();
 
   // Filter data by province if selected
-  const filteredData = selectedProvince === 'All' 
-    ? data 
-    : data.filter(uni => uni.province === selectedProvince);
+  const filteredData = filterByProvince(data, selectedProvince);
 
   // Calculate metrics
   const totalUniversities = filteredData.length;
@@ -25,7 +24,9 @@ const DashboardMetrics: React.FC<DashboardMetricsProps> = ({
   );
   const avgEnrollment = totalUniversities > 0 ? Math.round(totalStudents / totalUniversities) : 0;
   
-  const provinceEnrollment = getEnrollmentByProvince(data);
+  // Get top province from filtered data, or overall data if no province is selected
+  const dataForTopProvince = selectedProvince === 'All' ? data : filteredData;
+  const provinceEnrollment = getEnrollmentByProvince(dataForTopProvince);
   const topProvince = provinceEnrollment[0];
 
   // Format numbers for display

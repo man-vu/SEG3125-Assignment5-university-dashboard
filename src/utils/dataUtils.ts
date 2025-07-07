@@ -8,16 +8,16 @@ export interface UniversityData {
 }
 
 export const provinces = [
-  'Alberta',
-  'British Columbia',
-  'Manitoba',
-  'New Brunswick',
-  'Newfoundland & Labrador',
-  'Nova Scotia',
-  'Ontario',
-  'Prince Edward Island',
-  'Québec',
-  'Saskatchewan'
+  { value: 'Alberta', translationKey: 'province.alberta' },
+  { value: 'British Columbia', translationKey: 'province.britishColumbia' },
+  { value: 'Manitoba', translationKey: 'province.manitoba' },
+  { value: 'New Brunswick', translationKey: 'province.newBrunswick' },
+  { value: 'Newfoundland & Labrador', translationKey: 'province.newfoundlandLabrador' },
+  { value: 'Nova Scotia', translationKey: 'province.novaScotia' },
+  { value: 'Ontario', translationKey: 'province.ontario' },
+  { value: 'Prince Edward Island', translationKey: 'province.princeEdwardIsland' },
+  { value: 'Québec', translationKey: 'province.quebec' },
+  { value: 'Saskatchewan', translationKey: 'province.saskatchewan' }
 ];
 
 export const studentTypes = [
@@ -29,7 +29,6 @@ export const studentTypes = [
 
 export const parseCSVData = (csvText: string): UniversityData[] => {
   const lines = csvText.trim().split('\n');
-  const headers = lines[0].split(',');
   
   return lines.slice(1).map(line => {
     const values = line.split(',');
@@ -39,7 +38,7 @@ export const parseCSVData = (csvText: string): UniversityData[] => {
       fullTimeGraduate: parseInt(values[2]) || 0,
       partTimeUndergrad: parseInt(values[3]) || 0,
       partTimeGraduate: parseInt(values[4]) || 0,
-      province: values[5]
+      province: values[5]?.replace(/\r/g, '').trim() || ''
     };
   }).filter(uni => uni.universityName && uni.province); // Filter out empty entries
 };
@@ -58,8 +57,11 @@ export const getEnrollmentByProvince = (data: UniversityData[]): { province: str
   const provinceMap = new Map<string, number>();
   
   data.forEach(uni => {
-    const total = uni.fullTimeUndergrad + uni.fullTimeGraduate + uni.partTimeUndergrad + uni.partTimeGraduate;
-    provinceMap.set(uni.province, (provinceMap.get(uni.province) || 0) + total);
+    const cleanProvince = uni.province?.replace(/\r/g, '').trim() || '';
+    if (cleanProvince) {
+      const total = uni.fullTimeUndergrad + uni.fullTimeGraduate + uni.partTimeUndergrad + uni.partTimeGraduate;
+      provinceMap.set(cleanProvince, (provinceMap.get(cleanProvince) || 0) + total);
+    }
   });
   
   return Array.from(provinceMap.entries())
@@ -85,5 +87,8 @@ export const getStudentTypeBreakdown = (data: UniversityData[]) => {
 
 export const filterByProvince = (data: UniversityData[], province: string): UniversityData[] => {
   if (!province || province === 'All') return data;
-  return data.filter(uni => uni.province === province);
+  return data.filter(uni => {
+    const cleanProvince = uni.province?.replace(/\r/g, '').trim() || '';
+    return cleanProvince === province;
+  });
 }; 

@@ -27,6 +27,18 @@ const translations = {
     'controls.studentType': 'Student Type',
     'controls.universities': 'Number of Universities',
     
+    // Provinces
+    'province.alberta': 'Alberta',
+    'province.britishColumbia': 'British Columbia',
+    'province.manitoba': 'Manitoba',
+    'province.newBrunswick': 'New Brunswick',
+    'province.newfoundlandLabrador': 'Newfoundland & Labrador',
+    'province.novaScotia': 'Nova Scotia',
+    'province.ontario': 'Ontario',
+    'province.princeEdwardIsland': 'Prince Edward Island',
+    'province.quebec': 'Québec',
+    'province.saskatchewan': 'Saskatchewan',
+    
     // Student Types
     'studentType.fullTimeUndergrad': 'Full-time Undergraduate',
     'studentType.fullTimeGraduate': 'Full-time Graduate',
@@ -67,6 +79,18 @@ const translations = {
     'controls.province.all': 'Toutes les Provinces',
     'controls.studentType': 'Type d\'Étudiant',
     'controls.universities': 'Nombre d\'Universités',
+    
+    // Provinces
+    'province.alberta': 'Alberta',
+    'province.britishColumbia': 'Colombie-Britannique',
+    'province.manitoba': 'Manitoba',
+    'province.newBrunswick': 'Nouveau-Brunswick',
+    'province.newfoundlandLabrador': 'Terre-Neuve-et-Labrador',
+    'province.novaScotia': 'Nouvelle-Écosse',
+    'province.ontario': 'Ontario',
+    'province.princeEdwardIsland': 'Île-du-Prince-Édouard',
+    'province.quebec': 'Québec',
+    'province.saskatchewan': 'Saskatchewan',
     
     // Student Types
     'studentType.fullTimeUndergrad': 'Premier cycle à temps plein',
