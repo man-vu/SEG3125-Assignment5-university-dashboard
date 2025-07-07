@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('/src/universities_data.csv');
+        const response = await fetch('/universities_data.csv');
         const csvText = await response.text();
         const parsedData = parseCSVData(csvText);
         setData(parsedData);
