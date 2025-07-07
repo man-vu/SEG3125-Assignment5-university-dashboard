@@ -30,7 +30,7 @@ const DashboardControls: React.FC<DashboardControlsProps> = ({
               id="province-select"
               value={selectedProvince}
               onChange={(e) => setSelectedProvince(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
             >
               <option value="All">{t('controls.province.all')}</option>
               {provinces.map((province) => (
@@ -50,7 +50,7 @@ const DashboardControls: React.FC<DashboardControlsProps> = ({
               id="universities-select"
               value={maxUniversities}
               onChange={(e) => setMaxUniversities(Number(e.target.value))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -66,23 +66,23 @@ const DashboardControls: React.FC<DashboardControlsProps> = ({
           <span className="text-sm font-medium text-gray-700">
             {t('language.english')} / {t('language.french')}:
           </span>
-          <div className="flex bg-gray-200 rounded-lg p-1">
+          <div className="flex bg-gray-100 border border-gray-200 rounded-lg p-1">
             <button
               onClick={() => setLanguage('en')}
-              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors border ${
                 language === 'en'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-gray-900 border-gray-300 shadow'
+                  : 'bg-transparent text-gray-600 border-transparent hover:text-gray-900'
               }`}
             >
               EN
             </button>
             <button
               onClick={() => setLanguage('fr')}
-              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 py-1 text-sm font-medium rounded-md transition-colors border ${
                 language === 'fr'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-gray-900 border-gray-300 shadow'
+                  : 'bg-transparent text-gray-600 border-transparent hover:text-gray-900'
               }`}
             >
               FR
